@@ -9,3 +9,4 @@ When run without parameters, script works in LLD mode and returns the list of ma
  {#IRQ} - number of interrupt. Value from the first column of the /proc/interrupts file
  {#IRQLABEL}- type of interrupt and the name of the device that is located at that IRQ. Value from the last column of the /proc/interrupts file
 
+
