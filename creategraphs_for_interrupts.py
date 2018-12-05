@@ -12,7 +12,6 @@ import sys
 import requests
 import json
 import re
-from pprint import pprint
 
 # taken from the zabbix php
 color_palette = [ '1A7C11', 'F63100', '2774A4', 'A54F10', 'FC6EA3', '6C59DC', 'AC8C14', 
