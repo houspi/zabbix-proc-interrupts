@@ -37,7 +37,6 @@ host_id:            host_id for which the graphs are created
 ''' % sys.argv[0]
 
 def main():
-    print "Hello I'm here";
     if len(sys.argv) < 6 :
         usage()
         sys.exit(0)
