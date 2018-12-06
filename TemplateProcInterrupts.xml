@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
+    <date>2018-12-06T09:30:24Z</date>
     <groups>
         <group>
-            <name>Linux servers</name>
+            <name>Templates</name>
         </group>
     </groups>
     <templates>
@@ -13,7 +14,7 @@
             <description>Monitoring /proc/interrups</description>
             <groups>
                 <group>
-                    <name>Linux servers</name>
+                    <name>Templates</name>
                 </group>
             </groups>
             <applications>

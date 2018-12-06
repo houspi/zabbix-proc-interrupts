@@ -22,7 +22,7 @@ color_palette = [ '1A7C11', 'F63100', '2774A4', 'A54F10', 'FC6EA3', '6C59DC', 'A
 graph_width  = 900
 graph_height = 200
 items_key = "system.irq"
-app = "/zabbix/api_jsonrpc.php"
+json_api = "/zabbix/api_jsonrpc.php"
 
 headers = {'Content-type': 'application/json-rpc'}
 
@@ -42,18 +42,17 @@ def main():
         sys.exit(0)
 
     zabbix_host_name = sys.argv[1]
-    proto = sys.argv[2]
-    user = sys.argv[3]
+    proto    = sys.argv[2]
+    user     = sys.argv[3]
     password = sys.argv[4]
-    host_id = sys.argv[5]
-
-    url = proto + "://" + zabbix_host_name + app
+    host_id  = sys.argv[5]
+    url = proto + "://" + zabbix_host_name + json_api
     
     apiinfo = {'jsonrpc':'2.0','method':'apiinfo.version','id':1,'auth':None,'params':{}}
     try :
         r = requests.post(url, data=json.dumps(apiinfo), headers=headers)
     except Exception as e:
-        print "Connection error: ", str(e)
+        print "Apiinfo request error: ", str(e)
         sys.exit(1)
 
     if r.status_code != 200 :
@@ -63,16 +62,16 @@ def main():
     if ( "result" in json_result) :
         api_version = json_result["result"]
     else :
-        print "JSON Error: ", r.text
+        print "JSON error: ", r.text
         sys.exit(1)
 
     print "Zabbix API version:", api_version
     
-    user_login = {'jsonrpc':'2.0','method':'user.login','id':1,'auth':None,'params':{'user':user,'password':password}}
+    user_login = {"jsonrpc":"2.0","method":"user.login","id":1,"auth":None,"params":{"user":user,"password":password}}
     r = requests.post(url, data=json.dumps(user_login), headers=headers)
     
     try :
-        auth_id = r.json()['result']
+        auth_id = r.json()["result"]
     except :
         print "Auth error:", r.text
         sys.exit(1)
@@ -83,9 +82,7 @@ def main():
                     "params": {
                         "output": "extend",
                         "hostids": host_id,
-                        "search": {
-                            "key_": items_key
-                        },
+                        "search": { "key_": items_key },
                         "sortfield": "name"
                     },
                     "auth": auth_id,
@@ -93,7 +90,7 @@ def main():
     }
     r = requests.post(url, data=json.dumps(items_get), headers=headers)
     try :
-        items = r.json()['result']
+        items = r.json()["result"]
     except :
         print "item.get error\n", r.text
         sys.exit(1)
@@ -137,7 +134,7 @@ def main():
             "auth": auth_id,
             "id": 1
         }
-        print "graph.create:", graph
+        print "graph.create: ", graph
         r = requests.post(url, data=json.dumps(new_graph), headers=headers)
         print "graph.create Result:\n", r.text
         
