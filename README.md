@@ -1,5 +1,6 @@
 # zabbix-proc-interrupts
 Zabbix plugin for /proc/interrupts monitoring  
+The same stats you can get from **mpstat -I CPU**
 
 # proc_interrupts.py
 Script returns the number of interrupts per CPU on the x86 architecture from the /proc/interrupts file  
